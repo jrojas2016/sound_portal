@@ -10,7 +10,7 @@ $(document).ready(function () {
 	$("#color1").on("change",color1Submit)
 	$("#color2").on("change",color2Submit)
 	$("#color3").on("change",color3Submit)
-	$("#pattern").click(submitPattern)
+	$("input[type='radio'][name='args']").on("change", submitPattern)
 })
 
 function ajaxRequest (color, url) {
