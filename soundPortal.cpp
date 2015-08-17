@@ -65,6 +65,9 @@ void loop()
 	if (patternIndex == 3) {
 		rainbow(20);
 	}
+	if (patternIndex == -1) {
+		stripSet(OFF, 0);
+	}
 }
 
 int setColor1(String command) {
@@ -98,9 +101,7 @@ int setPattern(String command) {
 		return 1;
 	}
 	if (command == "off") {
-		printf("It's going in!");
 		patternIndex = -1;
-		stripSet(OFF, 0);
 		return 1;
 	}
 	else {
@@ -171,7 +172,7 @@ uint32_t Wheel(byte WheelPos) {
 
 void stripSet(uint32_t c, uint8_t wait) {
 	for(uint16_t i=0; i<strip.numPixels(); i++) {
-			strip.setPixelColor(i, c);
+		strip.setPixelColor(i, c);
 	}
 	// move the show outside the loop
 	strip.show();
