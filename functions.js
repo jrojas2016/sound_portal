@@ -1,3 +1,4 @@
+var patternurl = "https://api.particle.io/v1/devices/53ff70066667574832462567/setPattern?access_token=3e0eff8995da2e99f3c0a46a62cfd2ee61cd5e18"
 var color1url = "https://api.particle.io/v1/devices/53ff70066667574832462567/setColor1?access_token=3e0eff8995da2e99f3c0a46a62cfd2ee61cd5e18"
 var color2url = "https://api.particle.io/v1/devices/53ff70066667574832462567/setColor2?access_token=3e0eff8995da2e99f3c0a46a62cfd2ee61cd5e18"
 var color3url = "https://api.particle.io/v1/devices/53ff70066667574832462567/setColor3?access_token=3e0eff8995da2e99f3c0a46a62cfd2ee61cd5e18"
@@ -9,6 +10,7 @@ $(document).ready(function () {
 	$("#color1").on("change",color1Submit)
 	$("#color2").on("change",color2Submit)
 	$("#color3").on("change",color3Submit)
+	$("#pattern").click(submitPattern)
 })
 
 function ajaxRequest (color, url) {
@@ -37,5 +39,9 @@ function color2Submit(e) {
 function color3Submit(e) {
 	var color = $('#color3').val()
 	ajaxRequest(color, color3url)
+	e.preventDefault()
+}
+function submitPattern(e) {
+	ajaxRequest($("input[type='radio'][name='args']:checked").val(), patternurl)
 	e.preventDefault()
 }

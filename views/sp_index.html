@@ -15,14 +15,12 @@
 	<label> Pick Color #3 </label><br>
 	<input class="color" id = 'color3'><br>
 	<br>
-	<form action = 'https://api.particle.io/v1/devices/53ff70066667574832462567/setPattern?access_token=3e0eff8995da2e99f3c0a46a62cfd2ee61cd5e18' method = 'POST' >
-		<label> Pick Light Pattern </label><br>
-		<input type = 'radio' name = 'args' value = 'sprite'> Sprite (uses 3 colors) </input><br>
-		<input type = 'radio' name = 'args' value = 'snake'> Snake (uses 2 colors) </input><br>
-		<input type = 'radio' name = 'args' value = 'rainbow'> Rainbow (uses no colors) </input><br>
-		<input type = 'radio' name = 'args' value = 'strobe'> Strobe (uses 1 color) </input><br>
-		<input type = 'radio' name = 'args' value = 'off'> Off </input><br>
-		<input type = 'submit'>
-	</form>
+	<label> Pick Light Pattern </label><br>
+	<input type = 'radio' name = 'args' value = 'sprite'> Sprite (uses 3 colors) </input><br>
+	<input type = 'radio' name = 'args' value = 'snake'> Snake (uses 2 colors) </input><br>
+	<input type = 'radio' name = 'args' value = 'rainbow'> Rainbow (uses no colors) </input><br>
+	<input type = 'radio' name = 'args' value = 'strobe'> Strobe (uses 1 color) </input><br>
+	<input type = 'radio' name = 'args' value = 'off'> Off </input><br>
+	<input type = 'submit' id = 'pattern'>
 </body>
 </html>
