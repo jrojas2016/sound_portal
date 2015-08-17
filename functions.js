@@ -7,22 +7,35 @@ var color3 = undefined
 
 $(document).ready(function () {
 	$("#color1").on("change",color1Submit)
+	$("#color2").on("change",color2Submit)
+	$("#color3").on("change",color3Submit)
 })
 
-function color1Submit(e) {
-	console.log('lets see')
-	var color = $('#color1').val()
+function ajaxRequest (color, url) {
 	$.ajax({
 		dataType: 'json',
-		url: color1url,
+		url: url,
 		data: {'args': color},
 		type: 'POST',
 		success: function(data){
-			color1 = color
 		}.bind(this),
 		error: function(xhr, status, err) {
 			alert("awww! I'm sooo sorry, but the request failed :'(")
 		}
 	});
+}
+function color1Submit(e) {
+	var color = $('#color1').val()
+	ajaxRequest(color, color1url)
+	e.preventDefault()
+}
+function color2Submit(e) {
+	var color = $('#color2').val()
+	ajaxRequest(color, color2url)
+	e.preventDefault()
+}
+function color3Submit(e) {
+	var color = $('#color3').val()
+	ajaxRequest(color, color3url)
 	e.preventDefault()
 }
