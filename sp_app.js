@@ -8,7 +8,7 @@ app.set('view engine', 'html');
 app.set('port', (process.env.PORT || 5000));
 
 app.get('/', function (req, res) {
-	res.render('infinity-table.html');
+	res.render('sp_index.html');
 });
 
 var server = app.listen(app.get('port'), function () {
