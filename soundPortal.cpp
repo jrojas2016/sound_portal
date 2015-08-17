@@ -2,18 +2,20 @@
 Sound Portal: Internet Connected Infinity Mirror Table
 
 author(s): 
-		Jorge Rojas
+		Estefania Ortiz, Jorge Rojas
 
 description:
 		Code will control communication with the node server
 		to drive a neopixel strip and a speaker. 
 */
+#include <stdlib.h>
 #include "application.h"
 #include "neopixel/neopixel.h"
 
 SYSTEM_MODE(AUTOMATIC);
 
 // IMPORTANT: Set pixel COUNT, PIN and TYPE
+#define DELAY 
 #define PIXEL_PIN D2
 #define PIXEL_COUNT 60
 #define PIXEL_TYPE WS2812B
@@ -21,20 +23,29 @@ SYSTEM_MODE(AUTOMATIC);
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);
 
 //COLORS
+#define OFF strip.Color(0,0,0)
 #define RED strip.Color(255,0,0)
-#define GREEN strip.Color(0,255,0)
 #define BLUE strip.Color(0,0,255)
+#define GREEN strip.Color(0,255,0)
+#define AQUA strip.Color(0,255,255)
 #define YELLOW strip.Color(255,255,0)
 #define MAGENTA strip.Color(255,0,255)
 #define WHITE strip.Color(255,255,255)
-#define OFF strip.Color(0,0,0)
 
+//Default colors until modified by setColor functions
+uint32_t c1 = RED; 
+uint32_t c2 = GREEN;
+uint32_t c3 = BLUE;
 int patternIndex = -1;
 
 void setup() 
 {
 
+	Spark.function("setColor1", setColor1);
+	Spark.function("setColor2", setColor2);
+	Spark.function("setColor3", setColor3);
 	Spark.function("setPattern", setPattern);
+
 
 	strip.begin();
 	strip.show(); // Initialize all pixels to 'off'
@@ -43,36 +54,48 @@ void setup()
 void loop() 
 {
 	if (patternIndex == 0) {
-		strobe(true, WHITE, 200);
+		strobe(c1, 200);
 	}
 	if (patternIndex == 1) {
-		sprite(PIXEL_COUNT, RED, WHITE, BLUE, 90);
+		sprite(PIXEL_COUNT, c1, c2, c3, 90);
 	}
 	if (patternIndex == 2) {
-		snake(RED, WHITE, 3);
+		snake(c1, c2, 3);
 	}
 	if (patternIndex == 3) {
 		rainbow(20);
 	}
-	// sprite(PIXEL_COUNT, strip.Color(255,0,0), strip.Color(0,255,0), strip.Color(255,255,0), 90);
-	// twinkleRand(5,strip.Color(255,255,255),strip.Color(255, 0, 100),90);
-	// rainbow(20);
+}
+
+int setColor1(String command) {
+	c1 = strToColor(command);
+}
+
+int setColor2(String command) {
+	c2 = strToColor(command);
+}
+
+int setColor3(String command) {
+	c3 = strToColor(command);
 }
 
 int setPattern(String command) {
-	if (command == 'strobe') {
+	int cmd_index = command.indexOf(",");
+	String cmd = command.substring(0,cmd_index);
+
+	if (cmd == "strobe") {
 		patternIndex = 0;
 		return 1;
 	}
-	if (command == "sprite") {
+	if (cmd == "sprite") {
 		patternIndex = 1;
 		return 1;
 	}
-	if (command == "snake") {
+	if (cmd == "snake") {
 		patternIndex = 2;
 		return 1;
 	}
-	if (command == "rainbow") {
+	if (cmd == "rainbow") {
 		patternIndex = 3;
 		return 1;
 	}
@@ -81,23 +104,13 @@ int setPattern(String command) {
 	}
 }
 
-void strobe(bool strobeAll, uint32_t c, int wait) {
-	if (strobeAll) {
-		stripSet(OFF, 0);
-		for (int i = 0; i < PIXEL_COUNT; i++) {
-			strip.setPixelColor(i, c);
-		}
-		strip.show()
-		delay(wait)  	
+void strobe(uint32_t c, int wait) {
+	stripSet(OFF, 0);
+	for (int i = 0; i < PIXEL_COUNT; i++) {
+		strip.setPixelColor(i, c);
 	}
-	else {
-		for (int i = 0; i < PIXEL_COUNT; i++) {
-			stripSet(OFF, 0);
-			strip.setPixelColor(random(strip.numPixels()), c);
-		}
-		strip.show()
-		delay(wait)
-	}
+	strip.show();
+	delay(wait);  	
 }
 
 void sprite(int num, uint32_t c0, uint32_t c1, uint32_t c2, int wait) {
@@ -141,13 +154,13 @@ void rainbow(uint8_t wait) {
 // The colours are a transition r - g - b - back to r.
 uint32_t Wheel(byte WheelPos) {
 	if(WheelPos < 85) {
-	 return strip.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
+		return strip.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
 	} else if(WheelPos < 170) {
-	 WheelPos -= 85;
-	 return strip.Color(255 - WheelPos * 3, 0, WheelPos * 3);
+		WheelPos -= 85;
+		return strip.Color(255 - WheelPos * 3, 0, WheelPos * 3);
 	} else {
-	 WheelPos -= 170;
-	 return strip.Color(0, WheelPos * 3, 255 - WheelPos * 3);
+		WheelPos -= 170;
+		return strip.Color(0, WheelPos * 3, 255 - WheelPos * 3);
 	}
 }
 
@@ -158,4 +171,24 @@ void stripSet(uint32_t c, uint8_t wait) {
 	// move the show outside the loop
 	strip.show();
 	delay(wait);
+}
+
+uint32_t strToColor(String strColor) {
+	String temp;
+	char * cpoint;
+	uint32_t r, g, b;
+	char red[4], green[4], blue[4];
+
+	temp = "0x" + strColor.substring(0,2);
+	temp.toCharArray(red, 4);
+	temp = "0x" + strColor.substring(2,4);
+	temp.toCharArray(green, 4);
+	temp = "0x" + strColor.substring(4,6);
+	temp.toCharArray(blue, 4);
+
+	r = strtol(red, &cpoint, 16);
+	g = strtol(green, &cpoint, 16);
+	b = strtol(blue, &cpoint, 16);
+
+	return strip.Color(r, g, b);
 }
