@@ -65,6 +65,9 @@ void loop()
 	if (patternIndex == 3) {
 		rainbow(20);
 	}
+	if (patternIndex == -1) {
+		stripSet(OFF, 0);
+	}
 }
 
 int setColor1(String command) {
@@ -80,28 +83,25 @@ int setColor3(String command) {
 }
 
 int setPattern(String command) {
-	int cmd_index = command.indexOf(",");
-	String cmd = command.substring(0,cmd_index);
 
-	if (cmd == "strobe") {
+	if (command == "strobe") {
 		patternIndex = 0;
 		return 1;
 	}
-	if (cmd == "sprite") {
+	if (command == "sprite") {
 		patternIndex = 1;
 		return 1;
 	}
-	if (cmd == "snake") {
+	if (command == "snake") {
 		patternIndex = 2;
 		return 1;
 	}
-	if (cmd == "rainbow") {
+	if (command == "rainbow") {
 		patternIndex = 3;
 		return 1;
 	}
-	if (cmd == "off") {
+	if (command == "off") {
 		patternIndex = -1;
-		stripSet(OFF, 0);
 		return 1;
 	}
 	else {
@@ -172,7 +172,7 @@ uint32_t Wheel(byte WheelPos) {
 
 void stripSet(uint32_t c, uint8_t wait) {
 	for(uint16_t i=0; i<strip.numPixels(); i++) {
-			strip.setPixelColor(i, c);
+		strip.setPixelColor(i, c);
 	}
 	// move the show outside the loop
 	strip.show();
