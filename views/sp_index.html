@@ -2,13 +2,32 @@
 <html>
 <head>
 	<title> Infinity Table </title>
+	<script type="text/javascript" src="jscolor/jscolor.js"></script>
 </head>
 <body>
+	<h1> Sound Portal </h1>
+	<form action = 'https://api.particle.io/v1/devices/53ff70066667574832462567/setColor1?access_token=3e0eff8995da2e99f3c0a46a62cfd2ee61cd5e18' method = 'POST' >
+		<label> Pick Color #1 </label> <br>
+		<input class="color" name = 'args'> <br>
+		<input type = 'submit' value = 'Submit Color #1'>
+	</form>
+	<form action = 'https://api.particle.io/v1/devices/53ff70066667574832462567/setColor2?access_token=3e0eff8995da2e99f3c0a46a62cfd2ee61cd5e18' method = 'POST' >
+		<label> Pick Color #2 </label><br>
+		<input class="color" name = 'args'><br>
+		<input type = 'submit' value = 'Submit Color #2'>
+	</form>
+	<form action = 'https://api.particle.io/v1/devices/53ff70066667574832462567/setColor3?access_token=3e0eff8995da2e99f3c0a46a62cfd2ee61cd5e18' method = 'POST' >
+		<label> Pick Color #3 </label><br>
+		<input class="color" name = 'args'><br>
+		<input type = 'submit' value = 'Submit Color #3'>
+	</form>
+	<br>
 	<form action = 'https://api.particle.io/v1/devices/53ff70066667574832462567/setPattern?access_token=3e0eff8995da2e99f3c0a46a62cfd2ee61cd5e18' method = 'POST' >
-		<input type = 'radio' name = 'args' value = 'strobe'> Strobe </input>
-		<input type = 'radio' name = 'args' value = 'sprite'> Sprite </input>
-		<input type = 'radio' name = 'args' value = 'snake'> Snake </input>
-		<input type = 'radio' name = 'args' value = 'rainbow'> Rainbow </input>
+		<label> Pick Light Pattern </label><br>
+		<input type = 'radio' name = 'args' value = 'sprite'> Sprite (uses 3 colors) </input><br>
+		<input type = 'radio' name = 'args' value = 'snake'> Snake (uses 2 colors) </input><br>
+		<input type = 'radio' name = 'args' value = 'rainbow'> Rainbow (uses no colors) </input><br>
+		<input type = 'radio' name = 'args' value = 'strobe'> Strobe (uses 1 color) </input><br>
 		<input type = 'submit'>
 	</form>
 </body>
