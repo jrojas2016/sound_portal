@@ -80,26 +80,25 @@ int setColor3(String command) {
 }
 
 int setPattern(String command) {
-	int cmd_index = command.indexOf(",");
-	String cmd = command.substring(0,cmd_index);
 
-	if (cmd == "strobe") {
+	if (command == "strobe") {
 		patternIndex = 0;
 		return 1;
 	}
-	if (cmd == "sprite") {
+	if (command == "sprite") {
 		patternIndex = 1;
 		return 1;
 	}
-	if (cmd == "snake") {
+	if (command == "snake") {
 		patternIndex = 2;
 		return 1;
 	}
-	if (cmd == "rainbow") {
+	if (command == "rainbow") {
 		patternIndex = 3;
 		return 1;
 	}
-	if (cmd == "off") {
+	if (command == "off") {
+		printf("It's going in!");
 		patternIndex = -1;
 		stripSet(OFF, 0);
 		return 1;
