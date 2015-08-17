@@ -2,15 +2,14 @@
 <html>
 <head>
 	<title> Infinity Table </title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script type="text/javascript" src="jscolor/jscolor.js"></script>
+	<script type="text/javascript" src="functions.js"></script>
 </head>
 <body>
 	<h1> Sound Portal </h1>
-	<form action = 'https://api.particle.io/v1/devices/53ff70066667574832462567/setColor1?access_token=3e0eff8995da2e99f3c0a46a62cfd2ee61cd5e18' method = 'POST' >
 		<label> Pick Color #1 </label> <br>
-		<input class="color" name = 'args'> <br>
-		<input type = 'submit' value = 'Submit Color #1'>
-	</form>
+		<input class="color" id = 'color1' name = 'args'> <br>
 	<form action = 'https://api.particle.io/v1/devices/53ff70066667574832462567/setColor2?access_token=3e0eff8995da2e99f3c0a46a62cfd2ee61cd5e18' method = 'POST' >
 		<label> Pick Color #2 </label><br>
 		<input class="color" name = 'args'><br>
