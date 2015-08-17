@@ -27,6 +27,7 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);
 #define YELLOW strip.Color(255,255,0)
 #define MAGENTA strip.Color(255,0,255)
 #define WHITE strip.Color(255,255,255)
+#define OFF strip.Color(0,0,0)
 
 int patternIndex = -1;
 
@@ -42,12 +43,15 @@ void setup()
 void loop() 
 {
 	if (patternIndex == 0) {
-		sprite(PIXEL_COUNT, RED, WHITE, BLUE, 90);
+		strobe(true, WHITE, 200);
 	}
 	if (patternIndex == 1) {
-		snake(RED, WHITE, 3);
+		sprite(PIXEL_COUNT, RED, WHITE, BLUE, 90);
 	}
 	if (patternIndex == 2) {
+		snake(RED, WHITE, 3);
+	}
+	if (patternIndex == 3) {
 		rainbow(20);
 	}
 	// sprite(PIXEL_COUNT, strip.Color(255,0,0), strip.Color(0,255,0), strip.Color(255,255,0), 90);
@@ -56,20 +60,43 @@ void loop()
 }
 
 int setPattern(String command) {
-	if (command == "sprite") {
+	if (command == 'strobe') {
 		patternIndex = 0;
 		return 1;
 	}
-	if (command == "snake") {
+	if (command == "sprite") {
 		patternIndex = 1;
 		return 1;
 	}
-	if (command == "rainbow") {
+	if (command == "snake") {
 		patternIndex = 2;
-		return 2;
+		return 1;
+	}
+	if (command == "rainbow") {
+		patternIndex = 3;
+		return 1;
 	}
 	else {
 		return -1;
+	}
+}
+
+void strobe(bool strobeAll, uint32_t c, int wait) {
+	if (strobeAll) {
+		stripSet(OFF, 0);
+		for (int i = 0; i < PIXEL_COUNT; i++) {
+			strip.setPixelColor(i, c);
+		}
+		strip.show()
+		delay(wait)  	
+	}
+	else {
+		for (int i = 0; i < PIXEL_COUNT; i++) {
+			stripSet(OFF, 0);
+			strip.setPixelColor(random(strip.numPixels()), c);
+		}
+		strip.show()
+		delay(wait)
 	}
 }
 
