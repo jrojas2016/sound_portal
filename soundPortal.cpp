@@ -99,6 +99,11 @@ int setPattern(String command) {
 		patternIndex = 3;
 		return 1;
 	}
+	if (cmd == "off") {
+		patternIndex = -1;
+		stripSet(OFF, 0);
+		return 1;
+	}
 	else {
 		return -1;
 	}
