@@ -105,11 +105,12 @@ int setPattern(String command) {
 }
 
 void strobe(uint32_t c, int wait) {
-	stripSet(OFF, 0);
 	for (int i = 0; i < PIXEL_COUNT; i++) {
 		strip.setPixelColor(i, c);
 	}
 	strip.show();
+	delay(wait);
+	stripSet(OFF,0);
 	delay(wait);  	
 }
 
