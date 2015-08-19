@@ -60,7 +60,7 @@ void loop()
 		sprite(PIXEL_COUNT, c1, c2, c3, 90);
 	}
 	if (patternIndex == 2) {
-		snake(c1, c2, 3);
+		snake(c1, c2, 10);
 	}
 	if (patternIndex == 3) {
 		rainbow(20);
@@ -72,14 +72,17 @@ void loop()
 
 int setColor1(String command) {
 	c1 = strToColor(command);
+	return 1;
 }
 
 int setColor2(String command) {
 	c2 = strToColor(command);
+	return 1;
 }
 
 int setColor3(String command) {
 	c3 = strToColor(command);
+	return 1;
 }
 
 int setPattern(String command) {
@@ -138,9 +141,9 @@ void snake(uint32_t bg, uint32_t snake, int length){
 		stripSet(bg, 0);
 		for (int j = 0; j < length; j++) {
 			strip.setPixelColor(i + j, snake);
-			strip.show();
-			delay(30);
 		}
+		strip.show();
+		delay(30);
 	}
 }
 
