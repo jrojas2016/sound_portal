@@ -183,21 +183,11 @@ void stripSet(uint32_t c, uint8_t wait) {
 }
 
 uint32_t strToColor(String strColor) {
-	String temp;
-	char * cpoint;
-	uint32_t r, g, b;
-	char red[4], green[4], blue[4];
+	uint8_t r, g, b;
 
-	temp = "0x" + strColor.substring(0,2);
-	temp.toCharArray(red, 4);
-	temp = "0x" + strColor.substring(2,4);
-	temp.toCharArray(green, 4);
-	temp = "0x" + strColor.substring(4,6);
-	temp.toCharArray(blue, 4);
-
-	r = strtol(red, &cpoint, 16);
-	g = strtol(green, &cpoint, 16);
-	b = strtol(blue, &cpoint, 16);
-
+    r = atoi(strColor.substring(0,3).c_str());
+	g = atoi(strColor.substring(3,6).c_str());
+	b = atoi(strColor.substring(6,9).c_str());
+    
 	return strip.Color(r, g, b);
 }
