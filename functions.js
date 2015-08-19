@@ -29,24 +29,25 @@ function ajaxRequest (color, url) {
 function color1Submit(e) {
 	var color = $('#color1').val()
 	var red = ("00" + parseInt('0x' + color.substring(0,2))).slice(-3)
-	var green = ("00" + parseInt('0x' + color.substring(0,2))).slice(-3)
-	var blue = ("00" + parseInt('0x' + color.substring(0,2))).slice(-3)
+	var green = ("00" + parseInt('0x' + color.substring(2,4))).slice(-3)
+	var blue = ("00" + parseInt('0x' + color.substring(4,6))).slice(-3)
+	console.log(red+green+blue)
 	ajaxRequest(red+green+blue, color1url)
 	e.preventDefault()
 }
 function color2Submit(e) {
 	var color = $('#color2').val()
 	var red = ("00" + parseInt('0x' + color.substring(0,2))).slice(-3)
-	var green = ("00" + parseInt('0x' + color.substring(0,2))).slice(-3)
-	var blue = ("00" + parseInt('0x' + color.substring(0,2))).slice(-3)
+	var green = ("00" + parseInt('0x' + color.substring(2,4))).slice(-3)
+	var blue = ("00" + parseInt('0x' + color.substring(4,6))).slice(-3)
 	ajaxRequest(red+green+blue, color2url)
 	e.preventDefault()
 }
 function color3Submit(e) {
 	var color = $('#color3').val()
 	var red = ("00" + parseInt('0x' + color.substring(0,2))).slice(-3)
-	var green = ("00" + parseInt('0x' + color.substring(0,2))).slice(-3)
-	var blue = ("00" + parseInt('0x' + color.substring(0,2))).slice(-3)
+	var green = ("00" + parseInt('0x' + color.substring(2,4))).slice(-3)
+	var blue = ("00" + parseInt('0x' + color.substring(4,6))).slice(-3)
 	ajaxRequest(red+green+blue, color3url)
 	e.preventDefault()
 }
