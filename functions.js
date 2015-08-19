@@ -28,17 +28,26 @@ function ajaxRequest (color, url) {
 }
 function color1Submit(e) {
 	var color = $('#color1').val()
-	ajaxRequest(color, color1url)
+	var red = ("00" + parseInt('0x' + color.substring(0,2))).slice(-3)
+	var green = ("00" + parseInt('0x' + color.substring(0,2))).slice(-3)
+	var blue = ("00" + parseInt('0x' + color.substring(0,2))).slice(-3)
+	ajaxRequest(red+green+blue, color1url)
 	e.preventDefault()
 }
 function color2Submit(e) {
 	var color = $('#color2').val()
-	ajaxRequest(color, color2url)
+	var red = ("00" + parseInt('0x' + color.substring(0,2))).slice(-3)
+	var green = ("00" + parseInt('0x' + color.substring(0,2))).slice(-3)
+	var blue = ("00" + parseInt('0x' + color.substring(0,2))).slice(-3)
+	ajaxRequest(red+green+blue, color2url)
 	e.preventDefault()
 }
 function color3Submit(e) {
 	var color = $('#color3').val()
-	ajaxRequest(color, color3url)
+	var red = ("00" + parseInt('0x' + color.substring(0,2))).slice(-3)
+	var green = ("00" + parseInt('0x' + color.substring(0,2))).slice(-3)
+	var blue = ("00" + parseInt('0x' + color.substring(0,2))).slice(-3)
+	ajaxRequest(red+green+blue, color3url)
 	e.preventDefault()
 }
 function submitPattern(e) {
