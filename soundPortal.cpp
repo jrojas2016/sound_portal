@@ -60,7 +60,7 @@ void loop()
 		sprite(PIXEL_COUNT, c1, c2, c3, 90);
 	}
 	if (patternIndex == 2) {
-		snake(c1, c2, 3);
+		snake(c1, c2, 10);
 	}
 	if (patternIndex == 3) {
 		rainbow(20);
@@ -72,14 +72,17 @@ void loop()
 
 int setColor1(String command) {
 	c1 = strToColor(command);
+	return 1;
 }
 
 int setColor2(String command) {
 	c2 = strToColor(command);
+	return 1;
 }
 
 int setColor3(String command) {
 	c3 = strToColor(command);
+	return 1;
 }
 
 int setPattern(String command) {
@@ -138,9 +141,9 @@ void snake(uint32_t bg, uint32_t snake, int length){
 		stripSet(bg, 0);
 		for (int j = 0; j < length; j++) {
 			strip.setPixelColor(i + j, snake);
-			strip.show();
-			delay(30);
 		}
+		strip.show();
+		delay(30);
 	}
 }
 
@@ -180,21 +183,11 @@ void stripSet(uint32_t c, uint8_t wait) {
 }
 
 uint32_t strToColor(String strColor) {
-	String temp;
-	char * cpoint;
-	uint32_t r, g, b;
-	char red[4], green[4], blue[4];
+	uint8_t r, g, b;
 
-	temp = "0x" + strColor.substring(0,2);
-	temp.toCharArray(red, 4);
-	temp = "0x" + strColor.substring(2,4);
-	temp.toCharArray(green, 4);
-	temp = "0x" + strColor.substring(4,6);
-	temp.toCharArray(blue, 4);
-
-	r = strtol(red, &cpoint, 16);
-	g = strtol(green, &cpoint, 16);
-	b = strtol(blue, &cpoint, 16);
-
+    r = atoi(strColor.substring(0,3).c_str());
+	g = atoi(strColor.substring(3,6).c_str());
+	b = atoi(strColor.substring(6,9).c_str());
+    
 	return strip.Color(r, g, b);
 }
